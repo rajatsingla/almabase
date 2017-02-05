@@ -25,6 +25,15 @@ fix_filters: function fix_filters() {
       })
 </script>
 <div class="container" id="container">
+  <script>
+    function showfilters(){
+      $('.filters').toggleClass('show-filters')
+      $('.overlay').toggleClass('hide')
+    }
+  </script>
+  <a class="arrow" onclick="showfilters()">
+    Show Filters
+  </a>
   <div class="filters">
     <a class="resetfilters" href="/">
       Reset Filters
@@ -110,6 +119,7 @@ fix_filters: function fix_filters() {
 
       <label>Search by <b>Name</b></label>
       <input type="text" name="name" value="{{name}}"><br>
+      <input type="hidden" name="page">
       <input type="submit" value="OK">
 
       <script>
@@ -123,6 +133,21 @@ fix_filters: function fix_filters() {
     </form>
   </div>
   <div class="cards">
+    <div class="pagination">
+      <script>
+        function set_pagination(value){
+          $('input[name="page"]').val(value);
+          $('input[type="submit"]').click();
+        }
+      </script>
+      {% for i in page_range %}
+        <a onclick="set_pagination('{{i}}')" >
+          {{i}}
+        </a>
+      {% endfor %}
+    </div>
+    <div onclick="showfilters()" class="overlay hide">
+    </div>
     {% if game_list %}
         {% for game in game_list %}
           <div class="each-card">

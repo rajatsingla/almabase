@@ -62,7 +62,7 @@ input[type="text"] {
     box-shadow: 1px 2px 9.7px 0.3px rgba(0,0,0,0.52);
     transition: all .5s;
     overflow: hidden;
-    width: 30%;
+    width: 29%;
     padding: 0px;
     background-color: rgba(255, 255, 255, 0.95);
 }
@@ -72,4 +72,45 @@ input[type="text"] {
     text-align: center;
     width: 100%;
     font-size: 12px;
+}
+.arrow{
+  display: none;
+}
+
+@media only screen and (max-width: 1200px) {
+    .filters{
+      position: absolute;
+      background: url(cheap_diagonal_fabric.png);
+      left: -30%;
+      transition: all .5s;
+      z-index: 100;
+    }
+    .cards{
+      width: 88%;
+    }
+    .arrow{
+      display: block;
+      cursor: pointer;
+    }
+    .show-filters{
+      left:3%;
+    }
+    .overlay{
+      display: block;
+      position: absolute;
+      width: 67%;
+      height: 100%;
+      top: 0;
+      right: 0;
+      background-color: white;
+      opacity: .3;
+    }
+    .overlay.hide{
+      display: none;
+    }
+}
+.pagination a {
+    color: blue;
+    padding: 0 3px;
+    cursor: pointer;
 }

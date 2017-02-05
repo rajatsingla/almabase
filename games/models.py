@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+from django.core.paginator import Paginator
 from django.db import models
 
 
@@ -38,7 +38,12 @@ class Table8(models.Model):
             games=games.order_by('score')
         if params.get('order_rank') and params.get('order_rank')=='rank_desc':
             games=games.order_by('score').reverse()
-        return games
+        games=Paginator(games, 8)
+        if params.get('page') and params.get('page'):
+            games_page=games.page(params.get('page'))
+        else:
+            games_page=games.page(1)     
+        return games_page.object_list,games.page_range
 
 
     class Meta:
