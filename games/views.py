@@ -13,7 +13,15 @@ def index(request):
         'genre':genre,
         'platform':platform,
         'range':range(0,int(max_score)+1),
-        'game_list':table.search(request.GET)
+        'game_list':table.search(request.GET),
+        'rank': request.GET.get('rank'),
+        'genres': request.GET.get('genre'),
+        's_platform': request.GET.get('platform'),
+        'order_rank': request.GET.get('order_rank'),
+        'choice_t': request.GET.get('choice')=="true",
+        'choice_f': request.GET.get('choice')=="false",
     }
+    if request.GET.get('name') and request.GET.get('name')!=None:
+        context['name']=request.GET.get('name')
     template = loader.get_template('games/index.html')
     return HttpResponse(template.render(context, request))

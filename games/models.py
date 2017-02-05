@@ -28,16 +28,16 @@ class Table8(models.Model):
             games=games.filter(genre=params.get('genre'))
         if params.get('platform') and params.get('platform')!='':
             games=games.filter(platform=params.get('platform'))
-        if params.get('choice')!=None and params.get('choice')==False:
-            games=games.filter(choice=False)
-        if params.get('choice')!=None and params.get('choice')==True:
-            games=games.filter(choice=True)
+        if params.get('choice')!=None and params.get('choice')=="false":
+            games=games.filter(editors_choice='N')
+        if params.get('choice')!=None and params.get('choice')=="true":
+            games=games.filter(editors_choice='Y')
         if params.get('name') and params.get('name')!='':
             games=games.filter(title__icontains=params.get('name'))
         if params.get('order_rank') and params.get('order_rank')=='rank_asc':
-            games=games.order_by('score').asc()
+            games=games.order_by('score')
         if params.get('order_rank') and params.get('order_rank')=='rank_desc':
-            games=games.order_by('score').desc()
+            games=games.order_by('score').reverse()
         return games
 
 

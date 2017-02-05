@@ -1,3 +1,75 @@
 body{
-  background-color: black;
+    background:url('cheap_diagonal_fabric.png');
+}
+
+.cards {
+    padding: 20px;
+    padding-right: 0;
+    width: 70%;
+    float: right;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.filters {
+    width: 28%;
+    float: left;
+    padding: 21px;
+    padding-left: 0;
+    position: relative;
+    padding-top: 0;
+}
+
+.container {
+    padding: 20px;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+select {
+    padding: 6px;
+    min-width: 160px;
+}
+
+.inline-display{
+  display: inline;
+}
+
+label {
+    display: block;
+    padding-bottom: 5px;
+    padding-top: 28px;
+}
+
+input[type="submit"] {
+    padding: 6px;
+    margin-top: 31px;
+    min-width: 154px;
+}
+
+input[type="text"] {
+    height: 33px;
+}
+
+.each-card ul {
+    padding: 0;
+    margin: 0;
+    padding: 51px;
+}
+
+.each-card {
+    display: inline-block;
+    margin: 21px 1.5% 33px 1.5%;
+    box-shadow: 1px 2px 9.7px 0.3px rgba(0,0,0,0.52);
+    transition: all .5s;
+    overflow: hidden;
+    width: 30%;
+    padding: 0px;
+    background-color: rgba(255, 255, 255, 0.95);
+}
+.resetfilters {
+    padding: 0;
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-size: 12px;
 }

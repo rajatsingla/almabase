@@ -1,55 +1,142 @@
 <link rel="stylesheet" href="/static/style.css" />
-{% if game_list %}
-    <ul>
-    {% for game in game_list %}
-        <li>{{ game.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No Games are available.</p>
-{% endif %}
-<form action="/games" method="get" id="gameform">
-  <label for="choice3">Games with <b>rank</b> greater than</label>
-  <select id="choice3" name="rank" form="gameform">
-    <option value=""></option>
-    {% for i in range %}
-      <option value="{{i}}">{{i}}</option>
-    {% endfor %}
-  </select>
-
-  <label for="choice4">Filter by <b>Genre</b></label>
-  <select id="choice4" name="genre" form="gameform">
-    <option value=""></option>
-    {% if genre %}
-        {% for ge in genre %}
-            <option value="{{ge.genre}}">{{ge.genre}}</option>
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script>
+fix_filters: function fix_filters() {
+      var error, h,w, top,that;
+      that=$('.filters')
+      top = $(document).scrollTop();
+      h = $(document).height();
+      w= Number($('.filters').height());
+      try {
+        if (top + w < h) {
+          return that.css('top', top);
+        } else {
+          return that.css('top', h-w);
+        }
+      } catch (error) {
+        return console.log('dasdsa');
+      }
+    }
+    $(document).on('scroll', function () {
+        return fix_filters();
+      })
+</script>
+<div class="container" id="container">
+  <div class="filters">
+    <a class="resetfilters" href="/">
+      Reset Filters
+    </a>
+    <form action="/" method="get" id="gameform">
+      <label for="choice3">Games with <b>rank</b> greater than</label>
+      <select id="choice3" name="rank" form="gameform">
+        <option value=""></option>
+        {% for i in range %}
+          <option value="{{i}}">{{i}}</option>
         {% endfor %}
-    {% endif %}
-  </select>
+      </select>
+      <script>
+        $('select[name="rank"]').val("{{rank}}")
+      </script>
 
-  <label for="choice5">Filter by <b>Platform</b></label>
-  <select id="choice5" name="platform" form="gameform">
-    <option value=""></option>
-    {% if platform %}
-        {% for ge in platform %}
-            <option value="{{ge.platform}}">{{ge.platform}}</option>
+      <label for="choice4">Filter by <b>Genre</b></label>
+      <select id="choice4" name="genre" form="gameform">
+        <option value=""></option>
+        {% if genre %}
+            {% for ge in genre %}
+                <option value="{{ge.genre}}">{{ge.genre}}</option>
+            {% endfor %}
+        {% endif %}
+      </select>
+
+      <script>
+        {% if genres %}
+          $('select[name="genre"]').val("{{genres}}")
+        {% endif %}
+      </script>
+
+      <label for="choice5">Filter by <b>Platform</b></label>
+      <select id="choice5" name="platform" form="gameform">
+        <option value=""></option>
+        {% if platform %}
+            {% for ge in platform %}
+                <option value="{{ge.platform}}">{{ge.platform}}</option>
+            {% endfor %}
+        {% endif %}
+      </select>
+
+      <script>
+        {% if s_platform %}
+          $('select[name="platform"]').val("{{s_platform}}")
+        {% endif %}
+      </script>
+
+      <label for="choice4"><b>Editor's choice</b></label>
+      {% if choice_t %}
+        <input type="radio" name="choice" value="true" id="choice" checked="checked">
+      {% else %}
+        <input type="radio" name="choice" value="true" id="choice">
+      {% endif %}
+       <label class="inline-display" for="choice">Yes</label>
+       {% if choice_f %}
+         <input type="radio" name="choice" value="false" id="choice2" checked="checked">
+       {% else %}
+         <input type="radio" name="choice" value="false" id="choice2">
+       {% endif %}
+       <label class="inline-display" for="choice2">No</label>
+
+      <script>
+        {% if choice %}
+          $('input[name="choice"]').val("{{choice}}")
+        {% endif %}
+      </script>
+
+
+      <label for="choice4"><b>Sort by</b></label>
+
+      <select name="order_rank" form="gameform">
+        <option value=""></option>
+        <option value="rank_asc">Increasing Rank</option>
+        <option value="rank_desc">Decreasing Rank</option>
+      </select>
+
+      <script>
+        {% if order_rank %}
+          $('select[name="order_rank"]').val("{{order_rank}}")
+        {% endif %}
+      </script>
+
+      <label>Search by <b>Name</b></label>
+      <input type="text" name="name" value="{{name}}"><br>
+      <input type="submit" value="OK">
+
+      <script>
+        document.getElementById('container').onkeydown = function(e){
+             if(e.keyCode == 13){
+               $('input[type="submit"]').click();
+             }
+          }
+      </script>
+
+    </form>
+  </div>
+  <div class="cards">
+    {% if game_list %}
+        {% for game in game_list %}
+          <div class="each-card">
+            <ul>
+              <li>{{ game.title }}</a></li>
+              <li>{{ game.genre }}</a></li>
+              <li>{{ game.platform }}</a></li>
+              <li>{{ game.score }}</a></li>
+              <li>Editor's choice: {{ game.editors_choice }}</a></li>
+            </ul>
+          </div>
         {% endfor %}
+    {% else %}
+        <p>No Games are available.</p>
     {% endif %}
-  </select>
-
-  <label for="choice4"><b>Editor's choice</b></label>
-  <input type="radio" name="choice" value="true" id="choice"> <label for="choice">Yes</label>
-  <input type="radio" name="choice" value="false" id="choice2"> <label for="choice2">No</label>
-
-  <label for="choice4"><b>Sort by</b></label>
-
-  <select name="order_rank" form="gameform">
-    <option value=""></option>
-    <option value="rank_asc">Increasing Rank</option>
-    <option value="rank_desc">Decreasing Rank</option>
-  </select>
-
-  <label>Search by <b>Name</b>
-  <input type="text" name="name"><br>
-  <input type="submit" value="OK">
-</form>
+  </div>
+</div>
