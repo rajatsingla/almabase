@@ -1,3 +1,12 @@
+## To run server
+1. first install mysql,pip,python,django,mysqlclient
+2. create a db in mysql
+3. `cd almabase`
+4. `python manage.py migrate`
+5. restore dump added in pics to this db
+6. `python manage.py runserver 0.0.0.0:8000`
+7. go to http://127.0.0.1:8000
+
 ## Steps done to reach here
 
 1. `install python`
@@ -23,4 +32,5 @@
 19. Edit views.py in games app folder
 20. create templates folder in which add index.html
     to show list passed by index method in views.py
-21.  
+21. Write search method on game model
+22. Write html for all filters  
