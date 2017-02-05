@@ -1,3 +1,5 @@
+## Steps done to reach here
+
 1. `install python`
 2. `install pip`
 3. `install django`
